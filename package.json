@@ -13,12 +13,17 @@
     "@reduxjs/toolkit": "1.9.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-redux": "8.0.5"
+    "react-redux": "8.0.5",
+    "react-router-dom": "6.9.0"
   },
   "devDependencies": {
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.11",
     "@vitejs/plugin-react-swc": "3.0.0",
     "vite": "4.2.0"
-  }
+  },
+  "description": "Template này được sử dụng cho series React Test Fresher của tác giả Hỏi Dân IT (Eric)\r - React 18\r - React Router 6\r - Redux Tookit\r - Vite 4",
+  "main": "vite.config.js",
+  "author": "",
+  "license": "ISC"
 }

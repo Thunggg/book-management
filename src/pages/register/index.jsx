@@ -18,7 +18,7 @@ const RegisterPage = () => {
         } else{
             notification.error({
                 message:"Error register",
-                description: res.message
+                description: res.message && Array.isArray(res.message) ? res.message[0] : res.message,
             });
         }
       };

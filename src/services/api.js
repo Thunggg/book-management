@@ -11,4 +11,16 @@ const registerAPI = (email, fullName, password, phone) => {
     return axios.post(URL_BACKEND, data);
 }
 
-export {registerAPI}
+const loginAPI = (username, password) => {
+    const URL_BACKEND = "/api/v1/auth/login";
+    const data = {
+        username: username,
+        password: password,
+        delay: 5000
+    } 
+    return axios.post(URL_BACKEND, data);
+}
+
+export {
+    registerAPI, loginAPI
+}

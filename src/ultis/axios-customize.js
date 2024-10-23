@@ -4,6 +4,7 @@ const baseURL=import.meta.env.VITE_URL_BACKEND;
 // console.log(baseURL)
 const instance = axios.create({
     baseURL: baseURL, // Set the base URL for all requests
+    withCredentials: true,
 });
 
 // Add a request interceptor

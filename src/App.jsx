@@ -11,6 +11,7 @@ import BookPage from './pages/book';
 import Header from './components/header';
 import Footer from './components/footer';
 import Home from './components/home';
+import RegisterPage from './pages/register';
 
 const LayOut = () => {
   return(
@@ -46,11 +47,14 @@ export default function App() {
     {
       path: "/login",
       element: <LoginPage/>,
+    },
+    {
+      path: "/register",
+      element: <RegisterPage/>,
     }
   ]);
   
   return (
     <RouterProvider router={router} />
   )
-
 }

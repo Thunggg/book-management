@@ -1,10 +1,26 @@
-import React from 'react';
-import { Button, Checkbox, Divider, Form, Input } from 'antd';
+import React, { useState } from 'react';
+import { Button, Checkbox, Divider, Form, Input, message, notification } from 'antd';
+import { registerAPI } from '../../services/api';
+import { useNavigate } from 'react-router-dom';
 
 const RegisterPage = () => {
+    const [ isLogin, setIsLogin ] = useState(false);
+    const Navigate = useNavigate();
 
-    const onFinish = (values) => {
-        console.log('Success:', values);
+    const onFinish = async (values) => {
+        const {email, fullName, password, phone} = values;
+        setIsLogin(true);
+        const res = await registerAPI(email,fullName, password, phone);
+        setIsLogin(false);
+        if(res && res.data){
+            message.success("đăng ký thành công!");
+            Navigate("/");
+        } else{
+            notification.error({
+                message:"Error register",
+                description: res.message
+            });
+        }
       };
 
 
@@ -26,6 +42,7 @@ const RegisterPage = () => {
                     onFinish={onFinish}
                 >
                     <Form.Item
+                        labelCol={{span:24}}
                         label="Full name"
                         name="fullName"
                         rules={[
@@ -39,6 +56,7 @@ const RegisterPage = () => {
                     </Form.Item>
 
                     <Form.Item
+                        labelCol={{span:24}}
                         label="Email"
                         name="email"
                         rules={[
@@ -52,6 +70,7 @@ const RegisterPage = () => {
                     </Form.Item>
 
                     <Form.Item
+                        labelCol={{span:24}}
                         label="Password"
                         name="password"
                         rules={[
@@ -65,6 +84,7 @@ const RegisterPage = () => {
                     </Form.Item>
 
                     <Form.Item
+                        labelCol={{span:24}}
                         label="Phone"
                         name="phone"
                         rules={[
@@ -77,15 +97,10 @@ const RegisterPage = () => {
                     <Input />
                     </Form.Item>
 
-                    <Form.Item
-                        wrapperCol={{
-                            offset: 5,
-                            span: 16,
-                        }}
-                    >
-                    <Button type="primary" htmlType="submit">
-                        Submit
-                    </Button>
+                    <Form.Item>
+                        <Button type="primary" htmlType="submit" loading={isLogin}>
+                            Submit
+                        </Button>
                     </Form.Item>
                 </Form>
 

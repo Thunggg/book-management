@@ -3,11 +3,15 @@ import { Button, Checkbox, Divider, Form, Input, message, notification } from 'a
 import { loginAPI, registerAPI } from '../../services/api';
 import { Link, useNavigate } from 'react-router-dom';
 import { configConsumerProps } from 'antd/es/config-provider';
+import { useDispatch } from 'react-redux';
+import { doLoginAction } from '../../redux/account/accountSlice';
 
 
 const LoginPage = () => {
     const [ isLogin, setIsLogin ] = useState(false);
     const navigate = useNavigate();
+
+    const dispatch = useDispatch();
 
     const onFinish = async (values) => {
         const {username, password} = values;
@@ -15,6 +19,7 @@ const LoginPage = () => {
         const res = await loginAPI(username, password);
         setIsLogin(false);
         if(res && res.data){
+            dispatch(doLoginAction(res.data.user));
             localStorage.setItem("access_token", res.data.access_token);
             message.success("Đăng nhập thành công!");
             navigate("/");

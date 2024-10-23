@@ -21,6 +21,10 @@ const loginAPI = (username, password) => {
     return axios.post(URL_BACKEND, data);
 }
 
+const fetchAccount = () => {
+    return axios.get("/api/v1/auth/account");
+}
+
 export {
-    registerAPI, loginAPI
+    registerAPI, loginAPI, fetchAccount
 }

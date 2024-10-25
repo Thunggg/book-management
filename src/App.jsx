@@ -32,12 +32,31 @@ const LayOut = () => {
   )
 }
 
+const LayOutAdmin = () => {
+  const isAdminRoute = window.location.pathname.startsWith("/admin");
+  const user = useSelector(state => state.account.user);
+  const userRole = user.role;
+
+  return(
+    <>
+      <div className='layout-app'>
+        {(isAdminRoute && userRole === "ADMIN") && <Header/>}
+        <Outlet/>
+        {(isAdminRoute && userRole === "ADMIN") && <Footer/>}
+      </div>
+    </>
+  )
+}
+
 export default function App() {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector(state => state.account.isAuthenticated);
 
   const getAccount = async () => {
-    if(window.location.pathname === "/login") return
+    if(window.location.pathname === "/login"
+      || window.location.pathname === "/register"
+      || window.location.pathname === "/"
+    ) return
     const res = await fetchAccount();
     if(res?.data){
       dispatch(doGetAccountAction(res.data));
@@ -75,7 +94,7 @@ export default function App() {
     },
     {
       path: "/admin",
-      element: <LayOut/>,
+      element: <LayOutAdmin/>,
       errorElement: <ErrorPage/>,
       children: [
         { 
@@ -100,7 +119,10 @@ export default function App() {
   return (
     <>
       {
-      isAuthenticated === true || window.location.pathname === "/login"
+      isAuthenticated === true 
+      || window.location.pathname === "/login"
+      || window.location.pathname === "/register"
+      || window.location.pathname === "/"
       ?
       <RouterProvider router={router} />
       :

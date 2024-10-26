@@ -19,6 +19,8 @@ import Loading from './components/loading/loading';
 import ErrorPage from './pages/errror';
 import AdminPage from './pages/admin';
 import ProtectedRoute from './components/protectedRoute';
+import LayoutAdmin from './components/admin/LayoutAdmin';
+import './styles/reset.scss';
 
 const LayOut = () => {
   return(
@@ -32,21 +34,6 @@ const LayOut = () => {
   )
 }
 
-const LayOutAdmin = () => {
-  const isAdminRoute = window.location.pathname.startsWith("/admin");
-  const user = useSelector(state => state.account.user);
-  const userRole = user.role;
-
-  return(
-    <>
-      <div className='layout-app'>
-        {(isAdminRoute && userRole === "ADMIN") && <Header/>}
-        <Outlet/>
-        {(isAdminRoute && userRole === "ADMIN") && <Footer/>}
-      </div>
-    </>
-  )
-}
 
 export default function App() {
   const dispatch = useDispatch();
@@ -94,7 +81,7 @@ export default function App() {
     },
     {
       path: "/admin",
-      element: <LayOutAdmin/>,
+      element: <LayoutAdmin/>,
       errorElement: <ErrorPage/>,
       children: [
         { 
